@@ -1,12 +1,16 @@
 const express = require('express');
 const shortId = require('shortid');
 const cors = require('cors');
+const bodyParser = require('body-parser');	// https://stackoverflow.com/a/43626891/5644090
 
 const app = express();
 const port = process.env.PORT || 8888;
 const HTTP_CODE_404 = 404;
 const HTTP_CODE_500 = 500;
+
 app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 var hashURLMap = {};
 
