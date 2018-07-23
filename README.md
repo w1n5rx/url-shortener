@@ -40,3 +40,5 @@ As response the API should redirect to `target-url`.
 
 ## References
 1. https://bit.ly/2GaLHH1¸
+2. https://bit.ly/2Ly5fGZ
+3. https://bit.ly/2JNDyoP
