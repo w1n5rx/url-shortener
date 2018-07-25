@@ -6,7 +6,7 @@ var path = require('path');
 var webpackDevMiddleware = require("webpack-dev-middleware");
 var webpackHotMiddleware = require("webpack-hot-middleware");
 
-const webpackConfig = require('../webpack.config');
+const webpackConfig = require('../../webpack.config');
 
 console.log('Starting application server ...');
 

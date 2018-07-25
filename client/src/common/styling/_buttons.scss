@@ -1,0 +1,42 @@
+@mixin base-button() {
+	border-radius: 4px;
+	cursor: pointer;
+	border: 0;
+	outline: 0;
+	font-family: inherit;
+}
+
+@mixin button {
+	@include base-button();
+	@include shadow();
+
+	font-weight: 600;
+	color: $white;
+	background-color: rgba($white, .15);
+	padding: 12px 24px;
+	border: 1px solid transparent;
+	transition: background-color .2s linear;
+
+	&:hover {
+		background-color: rgba($white, .25);
+		transition: background-color .2s linear;
+	}
+
+	&[disabled] {
+		color: $grey;
+		opacity: .4;
+		pointer-events: none;
+	}
+
+	&.danger {
+		background-color: $red;
+
+		&:hover {
+			background-color: darken($red, 5%);
+		}
+	}
+}
+
+.btn {
+	@include button();
+}

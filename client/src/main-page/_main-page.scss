@@ -1,0 +1,56 @@
+.main-page {
+	@import './../common/styling/colors';
+	@import './../common/styling/common';
+
+	$content-max-width: 800px;
+
+	background: linear-gradient(135deg, rgba($dark-blue, 1) 0%, rgba($purple-red, 1) 100%);
+	padding: 20px;
+	min-height: 100%;
+
+	.shortener-titles {
+		margin-top: 80px;
+		text-align: center;
+	}
+
+	.shortener-wrapper {
+		@include flex-column();
+		align-items: center;
+		max-width: $content-max-width;
+		margin: 0 auto;
+
+		.url-shortener {
+			width: 100%;
+			@import './url-shortener/url-shortener';
+		}
+
+		.short-url-result-view {
+			width: 100%;
+			@import './short-url-result-view/short-url-result-view';
+		}
+
+		.short-url-editor {
+			width: 100%;
+			@import './short-url-editor/short-url-editor';
+		}
+
+		.editor-wrapper {
+			margin-top: 40px;
+
+			a.edit-url {
+				color: $white;
+				text-decoration: underline;
+			}
+		}
+
+		.url-delete-message {
+			@include panel();
+			color: $red;
+			text-align: center;
+
+			&.deleted {
+				color: $green;
+			}
+		}
+	}
+}

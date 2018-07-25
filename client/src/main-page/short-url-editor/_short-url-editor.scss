@@ -1,0 +1,9 @@
+& {
+	@include flex-row();
+
+	.url-input {
+		@include input();
+		flex-grow: 1;
+		margin-right: 10px;
+	}
+}

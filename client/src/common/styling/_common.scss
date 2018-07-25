@@ -1,0 +1,55 @@
+@mixin flex-row() {
+	display: flex;
+	flex-direction: row;
+}
+
+@mixin flex-column() {
+	display: flex;
+	flex-direction: column;
+}
+
+@mixin shadow {
+	box-shadow: 0 5px 15px 3px rgba($black, .3);
+}
+
+@mixin input {
+	@include shadow();
+	border: 0;
+	border-radius: 4px;
+	font-family: inherit;
+	font-size: inherit;
+	padding: 10px;
+	outline: none;
+}
+
+@mixin panel {
+	@include shadow();
+	padding: 20px;
+	margin: 10px 0;
+	background-color: $blue-grey;
+	border-radius: 4px;
+}
+
+.heading {
+	color: $white;
+	font-size: 2.3em;
+	font-weight: 600;
+	margin: 0;
+}
+
+.sub-heading {
+	color: $lightgrey;
+	margin: 0;
+	font-weight: 400;
+}
+
+a {
+	color: $dark-blue;
+	cursor: pointer;
+
+	&:hover {
+		color: lighten($dark-blue, 20%);
+	}
+}
+
+@import './buttons';

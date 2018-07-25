@@ -1,0 +1,17 @@
+& {
+	padding: 40px;
+
+	.form {
+		@include flex-row();
+
+		.shorten-url-input {
+			@include input();
+			flex-grow: 1;
+			margin-right: 10px;
+		}
+
+		.shorten-url-button {
+			font-size: inherit;
+		}
+	}
+}
