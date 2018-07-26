@@ -50,7 +50,7 @@ export class MainPage extends React.Component<MainPageProps, any> {
 		const editorWrapper = (
 			<div className='editor-wrapper'>
 				{ isEditOpen ? <ShortUrlEditorContainer onDeleteUrl={() => this.handleUrlDeleted()} onError={() => this.handleUrlDeleteError()}/> : null }
-				{ !isEditOpen ? <a className='edit-url' onClick={ () => this.setState({isEditOpen: true}) }>Click here to delete a short URL</a> : null }
+				{ !isEditOpen ? <a className='edit-url' onClick={ () => this.setState({isEditOpen: true}) }>Delete a short URL</a> : null }
 				{ this.state.isDeleteMessageVisible ? <div className={`url-delete-message ${this.state.isDeleteOk ? 'deleted' : ''}`}>{ deleteMessage }</div> : null }
 			</div>
 		);
@@ -59,8 +59,7 @@ export class MainPage extends React.Component<MainPageProps, any> {
 			<div className='main-page'>
 				<div className='shortener-wrapper'>
 					<div className='shortener-titles'>
-						<h2 className='heading'>Easily Shorten Your Links in One Click!</h2>
-						<h3 className='sub-heading'>Creating short URLs makes it easier for you to share them with the world</h3>
+						<h2 className='heading'>URL Shortener</h2>
 					</div>
 					<UrlShortenerContainer onShortUrlCreated={ (shortUrl, originalUrl) => this.handleNewShortUrl(shortUrl, originalUrl) } />
 					{ this.state.shortUrl ? shortUrlResult : null }

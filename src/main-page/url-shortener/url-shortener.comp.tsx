@@ -29,7 +29,7 @@ export class UrlShortener extends React.Component<UrlShortenerProps, any> {
 		return (
 			<div className='url-shortener'>
 				<form className='form' onSubmit={(event: any) => this.handleShortenLink(event)}>
-					<input className='input shorten-url-input' placeholder='Enter your link' value={stagedUrl} onChange={(e: any) => this.setState({stagedUrl: e.target.value})} />
+					<input className='input shorten-url-input' placeholder='Enter URL here' value={stagedUrl} onChange={(e: any) => this.setState({stagedUrl: e.target.value})} />
 					<button type='submit' className='btn shorten-url-button' disabled={!isStagedUrlValid}>Shorten</button>
 				</form>
 			</div>

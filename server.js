@@ -1,58 +1,58 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const shortId = require('shortid');
 const cors = require('cors');
-const bodyParser = require('body-parser');	// https://stackoverflow.com/a/43626891/5644090
 
 const app = express();
-const port = process.env.PORT || 8888;
-const HTTP_CODE_404 = 404;
-const HTTP_CODE_500 = 500;
-
-app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors());
 
-var hashURLMap = {};
+const PORT = 8888;
+const API_URL = '/v1';
 
-app.get('/v1/:hash', (req, res) => {
-  res.send({ express: 'Hello From Express' });
-  let hash = req.params.hash;
-  const redirectURL = hashURLMap[hash];
+var hashToUrlMap = {
+	'testHash': 'http://www.test.com'
+};
 
-	if (!redirectURL) {
-		errorResponse(res, HTTP_CODE_404, `No redirect URL for ${hash}`);
-	} else {
-		res.redirect(redirectURL);
-	}
-});
-
-const generateShortURL = (url) => {
+const createShortLinkHashFromUrl = (url) => {
 	return shortId.generate();
 }
 
-app.post(`/v1/links`, (req, res) => {
+app.post(`${API_URL}/links`, function(req, res) {
 	const url = req.body.url;
 
-	let hash = generateShortURL(url);
-	hashURLMap[hash] = url;
+	const shortLinkHash = createShortLinkHashFromUrl(url);
+	hashToUrlMap[shortLinkHash] = url;
 
 	if (!url) {
-		errorResponse(res, HTTP_CODE_500, 'No URL provided in request body');
+		errorResponse(res, 500, 'No URL provided in request body');
 	} else {
 		res.send({
-			'hash': hash
+			'hash': shortLinkHash
 		});
 	}
 });
 
-app.delete(`/v1/links/:hash`, function(req, res) {
-	let hash = req.params.hash;
+app.delete(`${API_URL}/links/:hash`, function(req, res) {
+	const hash = req.params.hash;
 
-	if (hashURLMap.hasOwnProperty(hash)) {
-		delete hashURLMap[hash];
+	if (hashToUrlMap.hasOwnProperty(hash)) {
+		delete hashToUrlMap[hash];
 		res.end();
 	} else {
-		errorResponse(res, HTTP_CODE_500, `${hash} deletion failed`);
+		errorResponse(res, 500, `Failed to delete hash ${hash}`);
+	}
+});
+
+app.get(`/:hash`, function(req, res) {
+	const hash = req.params.hash;
+	const redirectUrl = hashToUrlMap[hash];
+
+	if (!redirectUrl) {
+		errorResponse(res, 404, `No redirect url for ${hash}`);
+	} else {
+		res.redirect(redirectUrl);
 	}
 });
 
@@ -61,4 +61,6 @@ const errorResponse = (res, status, text) => {
 	res.send({ error: text });
 }
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+app.listen(PORT, function () {
+  console.log(`Url Shortening server now running on port ${PORT}.`);
+});

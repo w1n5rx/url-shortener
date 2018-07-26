@@ -6,10 +6,11 @@
   "scripts": {
     "test": "karma start",
     "server-start": "nodemon server.js",
-    "app-start": "node dev/devServer.js",
+    "app-start": "node client/frontendserver.js",
     "start": "concurrently 'npm run server-start' 'npm run app-start' --kill-others"
   },
   "dependencies": {
+    "@material-ui/icons": "^2.0.0",
     "axios": "^0.15.3",
     "babel-polyfill": "^6.23.0",
     "body-parser": "^1.16.1",
@@ -67,7 +68,6 @@
     "wallaby-webpack": "0.0.33",
     "webpack": "^1.14.0",
     "webpack-dev-middleware": "^1.9.0",
-    "webpack-dashboard": "0.2.0",
-    "webpack-hot-middleware": "^2.22.3"
+    "webpack-hot-middleware": "^2.14.0"
   }
 }
