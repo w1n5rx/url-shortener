@@ -7,6 +7,32 @@ Create an application similar to `bit.ly` - the link shortener using plain React
 
 The back-end is based on [Express](http://http://expressjs.com/), a Node.js web application framework.
 
+## Setup
+
+To setup the server install Node.js in Version 4.4 or newer from the [Node.Js Website](http://nodejs.org/).
+Then run the following command in the project root.
+This downloads all required dependencies to run the Server.
+
+```bash
+npm install
+```
+
+## Run the Server
+
+Run the following command in the project root:
+
+```bash
+nodemon server.js
+```
+## Run the Client
+
+Run the following command in the project root:
+
+```bash
+node client/frontendserver.js
+```
+
+
 * **Create new short link**
 
 ```plain

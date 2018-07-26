@@ -17,7 +17,7 @@ export const ShortUrlResultView = (props: ShortUrlResultViewProps) => {
 
 	return (
 		<div className='short-url-result-view'>
-			<div className='result-title'>🔗 Here's the short link!</div>
+			<div className='result-title'>🔗 Here's the short URL!</div>
 			<div className='view-section original-url-wrapper'>
 				<div>Original: <a className='original-url' href={ originalUrl } target='_blank'>{ originalUrl }</a></div>
 			</div>
