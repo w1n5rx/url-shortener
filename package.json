@@ -6,7 +6,7 @@
   "scripts": {
     "test": "karma start",
     "server-start": "nodemon server.js",
-    "app-start": "node client/dev/devServer.js",
+    "app-start": "node dev/devServer.js",
     "start": "concurrently 'npm run server-start' 'npm run app-start' --kill-others"
   },
   "dependencies": {

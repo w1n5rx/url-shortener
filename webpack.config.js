@@ -2,7 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 
 module.exports = {
-    entry: ["webpack-hot-middleware/client", "./client/dev/index.tsx"],
+    entry: ["webpack-hot-middleware/client", "./dev/index.tsx"],
 		plugins: [
 			new webpack.optimize.OccurenceOrderPlugin(),
 	    new webpack.HotModuleReplacementPlugin(),
