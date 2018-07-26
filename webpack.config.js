@@ -1,86 +1,50 @@
-const path              = require('path');
-const webpack           = require('webpack');
-const htmlPlugin        = require('html-webpack-plugin');
-const openBrowserPlugin = require('open-browser-webpack-plugin'); 
-const dashboardPlugin   = require('webpack-dashboard/plugin');
-const autoprefixer      = require('autoprefixer'); 
-
-const PATHS = {
-  app: path.join(__dirname, 'src'),
-  images:path.join(__dirname,'src/assets/'),
-  build: path.join(__dirname, 'dist')
-};
-
-const options = {
-  host:'localhost',
-  port:'1234'
-};
+var webpack = require('webpack');
+var path = require('path');
 
 module.exports = {
-  entry: {
-    app: PATHS.app
-  },
-  output: {
-    path: PATHS.build,
-    filename: 'bundle.[hash].js'
-  },
-  devServer: {
-      historyApiFallback: true,
-      hot: true,
-      inline: true,
-      stats: 'errors-only',
-      host: options.host,
-      port: options.port 
+    entry: ["webpack-hot-middleware/client", "./client/dev/index.tsx"],
+		plugins: [
+			new webpack.optimize.OccurenceOrderPlugin(),
+	    new webpack.HotModuleReplacementPlugin(),
+	    new webpack.NoErrorsPlugin()
+		],
+    output: {
+        filename: "bundle.js",
+        path: __dirname + "/dist",
+        publicPath: "/"
     },
-  module: {
-    loaders: [
-      {
-        test: /\.js$/,
-        exclude: /(node_modules|bower_components)/,
-        loader: 'babel',
-        query: {
-          cacheDirectory: true,
-          presets: ['es2015']
-        }
-      },
-      {
-        test: /\.css$/,
-        loaders: ['style', 'css', 'postcss'],
-        include:PATHS.app
-      },
-      
-      {
-        test: /\.(ico|jpg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,        
-        loader: 'file',
-        query: {
-          name: '[path][name].[ext]'
-        }
-      },      
-    ]
-  },
-  postcss: function() {
-    return [
-      autoprefixer({
-        browsers: [
-          '>1%',
-          'last 4 versions',
-          'Firefox ESR',
-          'not ie < 9',
+		devServer: {
+				contentBase: __dirname + '/dev',
+		},
+
+    // Enable sourcemaps for debugging webpack's output.
+    devtool: "source-map",
+
+    resolve: {
+        // Add '.ts' and '.tsx' as resolvable extensions.
+				// root: [path.resolve('./dev')],
+        extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js", ".jsx"]
+    },
+
+    module: {
+        loaders: [
+            // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
+            { test: /\.tsx?$/, loaders: ['react-hot', 'awesome-typescript-loader'] },
+						{ test: /\.scss$/, loaders: ['style', 'css', 'sass' ] }
+        ],
+
+        preLoaders: [
+            // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+            { test: /\.js$/, loader: "source-map-loader" }
         ]
-      }),
-    ];
-  },
-  plugins:[
-    new dashboardPlugin(),
-    new webpack.HotModuleReplacementPlugin({
-        multiStep: true
-    }),
-    new htmlPlugin({
-      template:path.join(PATHS.app,'index.html'),
-      inject:'body'
-    }),
-    new openBrowserPlugin({
-      url: `http://${options.host}:${options.port}`
-    })
-  ]
+    },
+
+    // When importing a module whose path matches one of the following, just
+    // assume a corresponding global variable exists and use that instead.
+    // This is important because it allows us to avoid bundling all of our
+    // dependencies, which allows browsers to cache those libraries between builds.
+    // externals: {
+    //     "react": "React",
+    //     "react-dom": "ReactDOM"
+    // },
 };
